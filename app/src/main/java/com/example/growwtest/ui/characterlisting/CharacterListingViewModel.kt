@@ -38,8 +38,8 @@ class CharacterListingViewModel @Inject constructor(
     private val _characters = MutableSharedFlow<Resource<Characters>>()
     val characters = _characters.asSharedFlow()
 
-//    private var sortingFeatures: CharacterFeatures? = null
-    var filteringFeatures: CharacterFeatures? = null
+    var allFilteringFeatures: CharacterFeatures? = null
+    var selectedFilteringFeatures: CharacterFeatures? = null
 
     var nextPage: Int? = null
     private var isPeopleApiInProgress = false
@@ -61,6 +61,7 @@ class CharacterListingViewModel @Inject constructor(
     ) = viewModelScope.launch(Dispatchers.IO) {
         if(nextPage != -1 && !isPeopleApiInProgress) {
             isPeopleApiInProgress = true
+            selectedFilteringFeatures = features
             getFilteredCharactersUseCase.invoke(nextPage ?: 1, features).onEach {
                 _characters.emit(it)
                 if(it is Resource.Success || it is Resource.Error) {
@@ -71,9 +72,9 @@ class CharacterListingViewModel @Inject constructor(
     }
 
     fun getFilterFeatures(): CharacterFeatures {
-        return filteringFeatures ?: run {
+        return allFilteringFeatures ?: run {
             val features = getCharacterFilterFeatures.invoke()
-            filteringFeatures = features
+            allFilteringFeatures = features
             features
         }
     }

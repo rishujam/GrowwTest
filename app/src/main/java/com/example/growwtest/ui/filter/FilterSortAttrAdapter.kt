@@ -51,10 +51,6 @@ class FilterSortAttrAdapter : RecyclerView.Adapter<FilterSortAttrAdapter.FilterS
         holder.binding.apply {
             tvTitleFilterAttr.text = attr.name
             cbFilterAttr.isChecked = attr.isChecked ?: false
-            root.setOnClickListener {
-                attr.isChecked = !cbFilterAttr.isChecked
-                onItemClickListener?.let { it(attr, position) }
-            }
             cbFilterAttr.setOnClickListener {
                 attr.isChecked = !cbFilterAttr.isChecked
                 onItemClickListener?.let { it(attr, position) }

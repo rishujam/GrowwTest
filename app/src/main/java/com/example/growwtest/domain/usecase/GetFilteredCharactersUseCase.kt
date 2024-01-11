@@ -68,6 +68,8 @@ class GetFilteredCharactersUseCase @Inject constructor(
                 }
                 val nextPage = it.next?.last().toString().toIntOrNull()
                 emit(Resource.Success(Characters(nextPage, characters)))
+            } ?: run {
+                emit(Resource.Error("Null"))
             }
         }
 

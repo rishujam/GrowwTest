@@ -15,8 +15,6 @@ import com.example.growwtest.ui.filter.model.FeatureAttr
 
 class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
 
-    private val characters = mutableListOf<Character>()
-
     inner class CharacterViewHolder(val binding: ItemCharacterListingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -34,8 +32,10 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
 
     fun submitData(newCharacters: List<Character>?) {
         newCharacters?.let {
-            characters.addAll(it)
-            differ.submitList(characters)
+            val newList = mutableListOf<Character>()
+            newList.addAll(differ.currentList)
+            newList.addAll(it)
+            differ.submitList(newList)
         }
     }
 

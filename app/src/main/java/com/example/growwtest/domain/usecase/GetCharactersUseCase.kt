@@ -38,7 +38,6 @@ class GetCharactersUseCase @Inject constructor(
                     )
                 }
                 val nextPage = it.next?.last().toString().toIntOrNull()
-                Log.d("RishuTest", "data for page usecase")
                 emit(Resource.Success(Characters(nextPage, characters)))
             } ?: run {
                 emit(Resource.Error("NULL"))

@@ -8,18 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.growwtest.MainActivity
 import com.example.growwtest.databinding.FragmentCharacterListingBinding
 import com.example.growwtest.domain.Resource
-import com.example.growwtest.domain.model.Character
 import com.example.growwtest.domain.model.CharacterFeatures
-import com.example.growwtest.ui.filmlisting.FilmsListingFragment
 import com.example.growwtest.ui.action.CharacterListingAction
+import com.example.growwtest.ui.filmlisting.FilmsListingFragment
 import com.example.growwtest.ui.filter.FilterSortBottomSheet
 import com.example.growwtest.ui.lsitener.BottomSheetListener
 import com.example.growwtest.util.Constants
@@ -27,12 +24,9 @@ import com.example.growwtest.util.hide
 import com.example.growwtest.util.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /*
  * Created by Sudhanshu Kumar on 09/01/24.
@@ -72,8 +66,14 @@ class CharacterListingFragment : Fragment() {
                 is Resource.Success -> {
                     binding?.pbPeopleListing?.hide()
                     viewModel.nextPage = it.data?.nextPage ?: -1
-                    Log.d("RishuTest", "data: ${it.data?.characters}")
                     characterAdapter.submitData(it.data?.characters)
+//                    Log.d("RishuTest", "page: ${it.data?.nextPage!! - 1}")
+                    Log.d("RishuTest", "nextPage: ${it.data?.nextPage}")
+                    if(it.data?.characters?.isEmpty() == true && it.data.nextPage != null) {
+                        viewModel.selectedFilteringFeatures?.let { selectedFeatures ->
+                            viewModel.getFilteredCharacters(selectedFeatures)
+                        }
+                    }
                 }
 
                 is Resource.Error -> {
@@ -94,7 +94,7 @@ class CharacterListingFragment : Fragment() {
                     }
 
                     override fun onClearClickListener() {
-
+                        viewModel.selectedFilteringFeatures = null
                     }
                 })
                 val bundle = Bundle()
@@ -134,9 +134,9 @@ class CharacterListingFragment : Fragment() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     val totalItemCount = gridLayoutManager.itemCount
-                    val lastVisibleItemPosition = gridLayoutManager.findLastVisibleItemPosition()
+                    val lastVisibleItemPosition = gridLayoutManager.findLastCompletelyVisibleItemPosition()
                     if (totalItemCount - lastVisibleItemPosition < 2) {
-                        viewModel.filteringFeatures?.let {
+                        viewModel.selectedFilteringFeatures?.let {
                             viewModel.getFilteredCharacters(it)
                         } ?: run {
                             viewModel.getCharacters()
@@ -144,6 +144,7 @@ class CharacterListingFragment : Fragment() {
                     }
                 }
             })
+
         }
 
         characterAdapter.setOnItemClickListener {
