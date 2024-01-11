@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.growwtest.R
 import com.example.growwtest.databinding.SheetFilterSortBinding
 import com.example.growwtest.domain.model.CharacterFeature
@@ -98,7 +99,7 @@ class FilterSortBottomSheet(
         filterAdapter = FilterAdapter()
         binding.rvFilterFeatureSheet.apply {
             adapter = filterAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         }
         attrAdapter = FilterSortAttrAdapter()
         binding.rvFeatureAttrSheet.apply {
