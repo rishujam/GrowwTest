@@ -1,12 +1,15 @@
 package com.example.growwtest.ui.filter
 
 import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.growwtest.R
 import com.example.growwtest.databinding.SheetFilterSortBinding
 import com.example.growwtest.domain.model.CharacterFeature
 import com.example.growwtest.domain.model.CharacterFeatures

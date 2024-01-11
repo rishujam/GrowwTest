@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:background="@drawable/filter_sheet_bg"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:paddingBottom="8dp"
 	android:id="@+id/filterBottomSheet">
 
 	<TextView
@@ -64,6 +66,7 @@
 		android:layout_marginTop="16dp"
 		android:layout_marginEnd="16dp"
 		app:layout_constraintEnd_toStartOf="@id/btnApply"
-		app:layout_constraintTop_toBottomOf="@id/rvFilterFeatureSheet" />
+		app:layout_constraintTop_toBottomOf="@id/rvFilterFeatureSheet"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,8 @@ import com.example.growwtest.domain.model.CharacterFeature
 
 class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterSortViewHolder>() {
 
+    private var selectedIndex: Int? = null
+
     inner class FilterSortViewHolder(val binding: ItemFilterSortBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -44,14 +46,15 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterSortViewHolder>()
         val feature = differ.currentList[position]
         holder.binding.apply {
             tvTitleFilter.text = feature.id
-//            if(feature.selected == true) {
-//                root.setBackgroundColor(root.context.getColor(R.color.selected_bg))
-//                tvTitleFilter.setTextColor(root.context.getColor(R.color.white))
-//            } else {
-//                root.setBackgroundColor(root.context.getColor(R.color.white))
-//                tvTitleFilter.setTextColor(root.context.getColor(R.color.black))
-//            }
+            if(selectedIndex == position) {
+                root.setBackgroundColor(root.context.getColor(R.color.selected_bg))
+                tvTitleFilter.setTextColor(root.context.getColor(R.color.white))
+            } else {
+                root.setBackgroundColor(root.context.getColor(R.color.white))
+                tvTitleFilter.setTextColor(root.context.getColor(R.color.black))
+            }
             root.setOnClickListener {
+                selectedIndex = position
                 onItemClickListener?.let { it(feature, position) }
             }
         }
