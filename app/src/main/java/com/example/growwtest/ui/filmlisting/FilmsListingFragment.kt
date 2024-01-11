@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.growwtest.databinding.FragmentFilmsListingBinding
 import com.example.growwtest.domain.Resource
-import com.example.growwtest.ui.filter.FilterAdapter
 import com.example.growwtest.util.Constants
 import com.example.growwtest.util.hide
 import com.example.growwtest.util.show

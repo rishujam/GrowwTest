@@ -53,10 +53,10 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
         val person = differ.currentList[position]
         holder.binding.apply {
             tvNamePeopleListing.text = person.name
-            tvEyeColorCharacterListing.text = person.eyeColor
-            tvHairColorCharacterListing.text = person.hairColor
-            tvGenderCharacterListing.text = person.gender
-            tvSkinColorCharacterListing.text = person.gender
+            tvEyeColorCharacterListing.text = "Eye color: ${person.eyeColor}"
+            tvHairColorCharacterListing.text = "Hair color: ${person.hairColor}"
+            tvGenderCharacterListing.text = "Gender: ${person.gender}"
+            tvSkinColorCharacterListing.text = "Skin color: ${person.skinColor}"
             root.setOnClickListener {
                 onItemClickListener?.let { it(person) }
             }
