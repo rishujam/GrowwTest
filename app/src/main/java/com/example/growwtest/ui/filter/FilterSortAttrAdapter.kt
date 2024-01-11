@@ -27,7 +27,14 @@ class FilterSortAttrAdapter : RecyclerView.Adapter<FilterSortAttrAdapter.FilterS
         }
     }
 
-    val differ = AsyncListDiffer(this, differCallback)
+    private val differ = AsyncListDiffer(this, differCallback)
+
+    fun submitData(list: List<FeatureAttr>?) {
+        list?.let {
+            differ.submitList(null)
+            differ.submitList(list)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterSortAttrViewHolder {
         return FilterSortAttrViewHolder(
@@ -45,7 +52,12 @@ class FilterSortAttrAdapter : RecyclerView.Adapter<FilterSortAttrAdapter.FilterS
             tvTitleFilterAttr.text = attr.name
             cbFilterAttr.isChecked = attr.isChecked ?: false
             root.setOnClickListener {
-                onItemClickListener?.let { it(attr) }
+                attr.isChecked = !cbFilterAttr.isChecked
+                onItemClickListener?.let { it(attr, position) }
+            }
+            cbFilterAttr.setOnClickListener {
+                attr.isChecked = !cbFilterAttr.isChecked
+                onItemClickListener?.let { it(attr, position) }
             }
         }
     }
@@ -54,9 +66,9 @@ class FilterSortAttrAdapter : RecyclerView.Adapter<FilterSortAttrAdapter.FilterS
         return differ.currentList.size
     }
 
-    private var onItemClickListener: ((FeatureAttr) -> Unit)? = null
+    private var onItemClickListener: ((FeatureAttr, position: Int) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (FeatureAttr) -> Unit) {
+    fun setOnItemClickListener(listener: (FeatureAttr, position: Int) -> Unit) {
         onItemClickListener = listener
     }
 

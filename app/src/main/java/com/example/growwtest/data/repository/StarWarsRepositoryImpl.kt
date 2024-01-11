@@ -29,13 +29,11 @@ class StarWarsRepositoryImpl @Inject constructor(
                 apiRes.body()?.let {
                     db.dao.insertPeople(it.toEntityPeopleListing())
                     val cachedData = db.dao.getPeopleListing(key)
-                    Log.d("RishuTest", "data cached for $key")
                     emit(cachedData?.toResPeopleListing())
                 } ?: throw Exception("Null body")
             } else {
                 val cacheData = db.dao.getPeopleListing(key)
                 cacheData?.let {
-                    Log.d("RishuTest", "cached data found for $key")
                     emit(it.toResPeopleListing())
                 }
             }

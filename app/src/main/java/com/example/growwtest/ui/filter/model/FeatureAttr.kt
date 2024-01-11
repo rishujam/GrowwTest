@@ -10,5 +10,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FeatureAttr(
     val name: String,
-    val isChecked: Boolean? = false
+    var isChecked: Boolean? = false
 ) : Parcelable

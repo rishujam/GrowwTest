@@ -12,6 +12,7 @@ import com.example.growwtest.domain.model.Characters
 import com.example.growwtest.domain.usecase.GetCharacterFilterFeatures
 import com.example.growwtest.domain.usecase.GetCharacterSortFeatures
 import com.example.growwtest.domain.usecase.GetCharactersUseCase
+import com.example.growwtest.domain.usecase.GetFilteredCharactersUseCase
 import com.example.growwtest.ui.filter.model.FeatureAttr
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +31,8 @@ import javax.inject.Inject
 class CharacterListingViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
     private val getCharacterFilterFeatures: GetCharacterFilterFeatures,
-    private val getCharacterSortFeatures: GetCharacterSortFeatures
+    private val getCharacterSortFeatures: GetCharacterSortFeatures,
+    private val getFilteredCharactersUseCase: GetFilteredCharactersUseCase
 ) : ViewModel() {
 
     private val _characters = MutableSharedFlow<Resource<Characters>>()
@@ -42,10 +44,24 @@ class CharacterListingViewModel @Inject constructor(
     var nextPage: Int? = null
     private var isPeopleApiInProgress = false
 
-    fun getPeople() = viewModelScope.launch(Dispatchers.IO) {
+    fun getCharacters() = viewModelScope.launch(Dispatchers.IO) {
         if(nextPage != -1 && !isPeopleApiInProgress) {
             isPeopleApiInProgress = true
             getCharactersUseCase.invoke(nextPage ?: 1).onEach {
+                _characters.emit(it)
+                if(it is Resource.Success || it is Resource.Error) {
+                    isPeopleApiInProgress = false
+                }
+            }.launchIn(this)
+        }
+    }
+
+    fun getFilteredCharacters(
+        features: CharacterFeatures
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        if(nextPage != -1 && !isPeopleApiInProgress) {
+            isPeopleApiInProgress = true
+            getFilteredCharactersUseCase.invoke(nextPage ?: 1, features).onEach {
                 _characters.emit(it)
                 if(it is Resource.Success || it is Resource.Error) {
                     isPeopleApiInProgress = false

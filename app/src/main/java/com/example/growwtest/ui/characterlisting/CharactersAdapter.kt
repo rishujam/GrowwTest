@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.growwtest.databinding.ItemCharacterListingBinding
 import com.example.growwtest.domain.model.Character
+import com.example.growwtest.ui.filter.model.FeatureAttr
 
 /*
  * Created by Sudhanshu Kumar on 23/12/23.
@@ -19,12 +20,22 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
     inner class CharacterViewHolder(val binding: ItemCharacterListingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    fun setData(newCharacters: List<Character>?) {
+    private val differCallback = object : DiffUtil.ItemCallback<Character>() {
+        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    private val differ = AsyncListDiffer(this, differCallback)
+
+    fun submitData(newCharacters: List<Character>?) {
         newCharacters?.let {
-            val diffCallback = CharacterAdapterDifferCallback(characters, newCharacters)
-            val diffResult = DiffUtil.calculateDiff(diffCallback)
-            characters.addAll(newCharacters)
-            diffResult.dispatchUpdatesTo(this)
+            characters.addAll(it)
+            differ.submitList(characters)
         }
     }
 
@@ -39,9 +50,13 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val person = characters[position]
+        val person = differ.currentList[position]
         holder.binding.apply {
             tvNamePeopleListing.text = person.name
+            tvEyeColorCharacterListing.text = person.eyeColor
+            tvHairColorCharacterListing.text = person.hairColor
+            tvGenderCharacterListing.text = person.gender
+            tvSkinColorCharacterListing.text = person.gender
             root.setOnClickListener {
                 onItemClickListener?.let { it(person) }
             }
@@ -49,7 +64,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
     }
 
     override fun getItemCount(): Int {
-        return characters.size
+        return differ.currentList.size
     }
 
     private var onItemClickListener: ((Character) -> Unit)? = null

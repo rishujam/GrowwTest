@@ -44,15 +44,15 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterSortViewHolder>()
         val feature = differ.currentList[position]
         holder.binding.apply {
             tvTitleFilter.text = feature.id
-            if(feature.selected == true) {
-                root.setBackgroundColor(root.context.getColor(R.color.selected_bg))
-                tvTitleFilter.setTextColor(root.context.getColor(R.color.white))
-            } else {
-                root.setBackgroundColor(root.context.getColor(R.color.white))
-                tvTitleFilter.setTextColor(root.context.getColor(R.color.black))
-            }
+//            if(feature.selected == true) {
+//                root.setBackgroundColor(root.context.getColor(R.color.selected_bg))
+//                tvTitleFilter.setTextColor(root.context.getColor(R.color.white))
+//            } else {
+//                root.setBackgroundColor(root.context.getColor(R.color.white))
+//                tvTitleFilter.setTextColor(root.context.getColor(R.color.black))
+//            }
             root.setOnClickListener {
-                onItemClickListener?.let { it(feature) }
+                onItemClickListener?.let { it(feature, position) }
             }
         }
     }
@@ -61,9 +61,9 @@ class FilterAdapter : RecyclerView.Adapter<FilterAdapter.FilterSortViewHolder>()
         return differ.currentList.size
     }
 
-    private var onItemClickListener: ((CharacterFeature) -> Unit)? = null
+    private var onItemClickListener: ((CharacterFeature, position: Int) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (CharacterFeature) -> Unit) {
+    fun setOnItemClickListener(listener: (CharacterFeature, position: Int) -> Unit) {
         onItemClickListener = listener
     }
 }

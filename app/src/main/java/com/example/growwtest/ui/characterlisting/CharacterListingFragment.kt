@@ -17,9 +17,11 @@ import com.example.growwtest.MainActivity
 import com.example.growwtest.databinding.FragmentCharacterListingBinding
 import com.example.growwtest.domain.Resource
 import com.example.growwtest.domain.model.Character
+import com.example.growwtest.domain.model.CharacterFeatures
 import com.example.growwtest.ui.filmlisting.FilmsListingFragment
 import com.example.growwtest.ui.action.CharacterListingAction
 import com.example.growwtest.ui.filter.FilterSortBottomSheet
+import com.example.growwtest.ui.lsitener.BottomSheetListener
 import com.example.growwtest.util.Constants
 import com.example.growwtest.util.hide
 import com.example.growwtest.util.show
@@ -60,18 +62,20 @@ class CharacterListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRv()
-        viewModel.getPeople()
+        viewModel.getCharacters()
         viewModel.characters.onEach {
-            when(it) {
+            when (it) {
                 is Resource.Loading -> {
                     binding?.pbPeopleListing?.show()
                 }
+
                 is Resource.Success -> {
                     binding?.pbPeopleListing?.hide()
                     viewModel.nextPage = it.data?.nextPage ?: -1
-                    Log.d("RishuTest", "nextPage: ${viewModel.nextPage}")
-                    characterAdapter.setData(it.data?.characters)
+                    Log.d("RishuTest", "data: ${it.data?.characters}")
+                    characterAdapter.submitData(it.data?.characters)
                 }
+
                 is Resource.Error -> {
                     Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                     binding?.pbPeopleListing?.hide()
@@ -82,7 +86,17 @@ class CharacterListingFragment : Fragment() {
         binding?.apply {
             chFilterCharacterListing.setOnClickListener {
                 val filterFeatures = viewModel.getFilterFeatures()
-                val modal = FilterSortBottomSheet()
+                val modal = FilterSortBottomSheet(object : BottomSheetListener {
+                    override fun onApplyClickListener(selectedFeatures: CharacterFeatures) {
+                        setupRv()
+                        viewModel.nextPage = 1
+                        viewModel.getFilteredCharacters(filterFeatures)
+                    }
+
+                    override fun onClearClickListener() {
+
+                    }
+                })
                 val bundle = Bundle()
                 bundle.putParcelable(Constants.ARGS.ARG_SHEET_DATA, filterFeatures)
                 bundle.putParcelable(Constants.ARGS.ARG_SHEET_ACTION, CharacterListingAction.Filter)
@@ -92,7 +106,15 @@ class CharacterListingFragment : Fragment() {
 
             chSortCharacterListing.setOnClickListener {
 //                val sortingFeatures = viewModel.getSortFeatures()
-                val modal = FilterSortBottomSheet()
+                val modal = FilterSortBottomSheet(object : BottomSheetListener {
+                    override fun onApplyClickListener(selectedFeatures: CharacterFeatures) {
+
+                    }
+
+                    override fun onClearClickListener() {
+
+                    }
+                })
                 val bundle = Bundle()
                 bundle.putParcelable(Constants.ARGS.ARG_SHEET_ACTION, CharacterListingAction.Sort)
 //                bundle.putParcelable(Constants.ARGS.ARG_SHEET_DATA, sortingFeatures)
@@ -113,8 +135,12 @@ class CharacterListingFragment : Fragment() {
                     super.onScrolled(recyclerView, dx, dy)
                     val totalItemCount = gridLayoutManager.itemCount
                     val lastVisibleItemPosition = gridLayoutManager.findLastVisibleItemPosition()
-                    if(totalItemCount - lastVisibleItemPosition < 2) {
-                        viewModel.getPeople()
+                    if (totalItemCount - lastVisibleItemPosition < 2) {
+                        viewModel.filteringFeatures?.let {
+                            viewModel.getFilteredCharacters(it)
+                        } ?: run {
+                            viewModel.getCharacters()
+                        }
                     }
                 }
             })
