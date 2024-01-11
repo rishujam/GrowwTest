@@ -11,6 +11,7 @@ object Constants {
     object ARGS {
         const val ARG_SHEET_ACTION = "arg_sheet_action"
         const val ARG_SHEET_DATA = "arg_sheet_data"
+        const val ARG_CHARACTER = "arg_character"
     }
 
     object CharacterFilterFeatures {

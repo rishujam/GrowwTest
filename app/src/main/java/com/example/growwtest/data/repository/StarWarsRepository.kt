@@ -13,6 +13,6 @@ interface StarWarsRepository {
 
     suspend fun getPeople(page: Int): Flow<ResPeopleListing?>
 
-    suspend fun getFilms(page: Int): ResFilmListing?
+    suspend fun getFilms(page: Int): Flow<ResFilmListing?>
 
 }

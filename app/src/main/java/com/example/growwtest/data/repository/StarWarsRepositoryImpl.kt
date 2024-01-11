@@ -42,18 +42,18 @@ class StarWarsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFilms(page: Int): ResFilmListing? {
+    override suspend fun getFilms(page: Int): Flow<ResFilmListing?> = flow {
         try {
             val apiRes = api.getFilms(page)
             if(apiRes.isSuccessful) {
                 apiRes.body()?.let {
-                    return it
+                    emit(it)
                 } ?: throw Exception("Null body")
             } else {
                 throw Exception(apiRes.message())
             }
         } catch (e: Exception) {
-            return null
+            emit(null)
         }
     }
 }

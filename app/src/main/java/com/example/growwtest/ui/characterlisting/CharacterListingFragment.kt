@@ -67,8 +67,6 @@ class CharacterListingFragment : Fragment() {
                     binding?.pbPeopleListing?.hide()
                     viewModel.nextPage = it.data?.nextPage ?: -1
                     characterAdapter.submitData(it.data?.characters)
-//                    Log.d("RishuTest", "page: ${it.data?.nextPage!! - 1}")
-                    Log.d("RishuTest", "nextPage: ${it.data?.nextPage}")
                     if(it.data?.characters?.isEmpty() == true && it.data.nextPage != null) {
                         viewModel.selectedFilteringFeatures?.let { selectedFeatures ->
                             viewModel.getFilteredCharacters(selectedFeatures)
