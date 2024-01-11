@@ -31,15 +31,22 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/tvTitleSheet"/>
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/rvFilterFeatureSheet"
+	<com.google.android.material.chip.ChipGroup
+		android:id="@+id/chipFilters"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-		tools:listitem="@layout/item_filter_sort"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvDesSheet" />
+		android:layout_marginHorizontal="16dp"
+		app:layout_constraintTop_toBottomOf="@id/tvDesSheet"/>
+
+<!--	<androidx.recyclerview.widget.RecyclerView-->
+<!--		android:id="@+id/rvFilterFeatureSheet"-->
+<!--		android:layout_width="match_parent"-->
+<!--		android:layout_height="wrap_content"-->
+<!--		android:orientation="horizontal"-->
+<!--		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--		tools:listitem="@layout/item_filter_sort"-->
+<!--		app:layout_constraintStart_toStartOf="parent"-->
+<!--		app:layout_constraintTop_toBottomOf="@id/tvDesSheet" />-->
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvFeatureAttrSheet"
@@ -50,7 +57,7 @@
 		android:layout_marginHorizontal="16dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/rvFilterFeatureSheet" />
+		app:layout_constraintTop_toBottomOf="@id/chipFilters" />
 
 	<com.google.android.material.chip.Chip
 		android:id="@+id/btnApply"
