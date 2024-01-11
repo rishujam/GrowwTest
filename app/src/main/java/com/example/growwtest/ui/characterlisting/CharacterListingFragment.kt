@@ -146,7 +146,10 @@ class CharacterListingFragment : Fragment() {
         }
 
         characterAdapter.setOnItemClickListener {
+            val bundle = Bundle()
+            bundle.putString(Constants.ARGS.ARG_CHARACTER, it.name)
             val fragment = FilmsListingFragment()
+            fragment.arguments = bundle
             (activity as? MainActivity)?.addCurrentFragToBackStack(fragment)
         }
     }

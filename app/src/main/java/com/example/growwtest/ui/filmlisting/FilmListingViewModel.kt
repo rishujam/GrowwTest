@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.growwtest.domain.Resource
 import com.example.growwtest.domain.model.FilmUI
+import com.example.growwtest.domain.model.FilmsUI
 import com.example.growwtest.domain.usecase.GetFilmsByCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -12,17 +13,18 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /*
  * Created by Sudhanshu Kumar on 11/01/24.
  */
 
 @HiltViewModel
-class FilmListingViewModel(
+class FilmListingViewModel @Inject constructor(
     private val getFilmsByCharacterUseCase: GetFilmsByCharacterUseCase
 ) : ViewModel() {
 
-    private val _films = MutableSharedFlow<Resource<List<FilmUI>>>()
+    private val _films = MutableSharedFlow<Resource<FilmsUI>>()
     val films = _films.asSharedFlow()
 
     var nextPage: Int? = null
@@ -38,7 +40,6 @@ class FilmListingViewModel(
                 }
             }.launchIn(this)
         }
-
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.growwtest.domain.usecase
 import com.example.growwtest.data.repository.StarWarsRepositoryImpl
 import com.example.growwtest.domain.Resource
 import com.example.growwtest.domain.model.FilmUI
+import com.example.growwtest.domain.model.FilmsUI
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,7 +16,7 @@ class GetFilmsByCharacterUseCase @Inject constructor(
     private val repository: StarWarsRepositoryImpl
 ) {
 
-    operator fun invoke(page: Int, character: String): Flow<Resource<List<FilmUI>>> = flow {
+    operator fun invoke(page: Int, character: String): Flow<Resource<FilmsUI>> = flow {
         emit(Resource.Loading())
         repository.getFilms(page).collect {
             it?.let { res ->
@@ -32,7 +33,8 @@ class GetFilmsByCharacterUseCase @Inject constructor(
                         films.add(filmUi)
                     }
                 }
-                emit(Resource.Success(films))
+                val nextPage = it.next?.last()?.toString()?.toIntOrNull()
+                emit(Resource.Success(FilmsUI(nextPage, films)))
             } ?: run {
                 emit(Resource.Error("NULL"))
             }

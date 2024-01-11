@@ -53,6 +53,7 @@ class StarWarsRepositoryImpl @Inject constructor(
                 throw Exception(apiRes.message())
             }
         } catch (e: Exception) {
+            Log.d("RishuTest", "error: ${e.message}")
             emit(null)
         }
     }

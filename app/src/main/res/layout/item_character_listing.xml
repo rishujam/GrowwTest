@@ -19,63 +19,63 @@
 		android:id="@+id/tvNamePeopleListing"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Rishu"
+		android:paddingVertical="16dp"
 		android:textAlignment="center"
+		android:textColor="@color/white"
 		android:textSize="18sp"
 		android:textStyle="bold"
-		android:textColor="@color/white"
-		android:paddingVertical="16dp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/ivPhotoPeopleListing"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@id/ivPhotoPeopleListing"
+		tools:text="Rishu" />
 
 	<TextView
 		android:id="@+id/tvHairColorCharacterListing"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Hair Color"
 		android:textAlignment="center"
-		android:textSize="16sp"
 		android:textColor="@color/white"
+		android:textSize="16sp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvNamePeopleListing"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tvNamePeopleListing"
+		tools:text="Hair Color" />
 
 	<TextView
 		android:id="@+id/tvEyeColorCharacterListing"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Eye Color"
 		android:textAlignment="center"
-		android:textSize="16sp"
 		android:textColor="@color/white"
+		android:textSize="16sp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvHairColorCharacterListing"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tvHairColorCharacterListing"
+		tools:text="Eye Color" />
 
 	<TextView
 		android:id="@+id/tvSkinColorCharacterListing"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Skin Color"
 		android:textAlignment="center"
-		android:textSize="16sp"
 		android:textColor="@color/white"
+		android:textSize="16sp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvEyeColorCharacterListing"/>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tvEyeColorCharacterListing"
+		tools:text="Skin Color" />
 
 	<TextView
 		android:id="@+id/tvGenderCharacterListing"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Gender"
 		android:textAlignment="center"
-		android:textSize="16sp"
 		android:textColor="@color/white"
+		android:textSize="16sp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvSkinColorCharacterListing"/>
-
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tvSkinColorCharacterListing"
+		tools:text="Gender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

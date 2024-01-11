@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 //TODO - Sorting in Character Listing
 //TODO - UI Improvement
-//TODO - Films Listing page
 //TODO - Unit Tests
 
 @AndroidEntryPoint
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setCurrentFragment(frag)
     }
 
-    fun setCurrentFragment(fragment: Fragment) {
+    private fun setCurrentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.flMainActivity, fragment)
             .commit()
