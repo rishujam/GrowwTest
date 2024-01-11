@@ -7,10 +7,6 @@ import com.example.growwtest.databinding.ActivityMainBinding
 import com.example.growwtest.ui.characterlisting.CharacterListingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-//TODO - Sorting in Character Listing
-//TODO - UI Improvement
-//TODO - Unit Tests
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

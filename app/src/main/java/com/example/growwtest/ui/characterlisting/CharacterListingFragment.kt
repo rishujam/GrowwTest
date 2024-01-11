@@ -93,6 +93,9 @@ class CharacterListingFragment : Fragment() {
 
                     override fun onClearClickListener() {
                         viewModel.selectedFilteringFeatures = null
+                        setupRv()
+                        viewModel.nextPage = 1
+                        viewModel.getCharacters()
                     }
                 })
                 val bundle = Bundle()
@@ -103,21 +106,7 @@ class CharacterListingFragment : Fragment() {
             }
 
             chSortCharacterListing.setOnClickListener {
-//                val sortingFeatures = viewModel.getSortFeatures()
-                val modal = FilterSortBottomSheet(object : BottomSheetListener {
-                    override fun onApplyClickListener(selectedFeatures: CharacterFeatures) {
 
-                    }
-
-                    override fun onClearClickListener() {
-
-                    }
-                })
-                val bundle = Bundle()
-                bundle.putParcelable(Constants.ARGS.ARG_SHEET_ACTION, CharacterListingAction.Sort)
-//                bundle.putParcelable(Constants.ARGS.ARG_SHEET_DATA, sortingFeatures)
-                modal.arguments = bundle
-                childFragmentManager.let { modal.show(it, "CharacterListingFragment") }
             }
         }
     }
