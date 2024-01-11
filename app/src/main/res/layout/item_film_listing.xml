@@ -7,76 +7,38 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<ImageView
-		android:id="@+id/ivPhotoFilmListing"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:src="@color/black"
-		app:layout_constraintDimensionRatio="1:1"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:layout_editor_absoluteX="0dp" />
-
 	<TextView
 		android:id="@+id/tvNameFilmListing"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		app:layout_constraintStart_toStartOf="parent"
 		tools:text="Rishu"
-		android:textAlignment="center"
+		android:textAlignment="textStart"
+		android:paddingStart="16dp"
 		android:textSize="18sp"
 		android:textStyle="bold"
 		android:textColor="@color/white"
-		android:paddingVertical="16dp"
+		android:paddingTop="16dp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/ivPhotoFilmListing"/>
+		app:layout_constraintTop_toTopOf="parent"/>
 
 	<TextView
-		android:id="@+id/tvHairColorCharacterListing"
-		android:layout_width="wrap_content"
+		android:id="@+id/tvProducerFilmListing"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Hair Color"
-		android:textAlignment="center"
-		android:textSize="16sp"
+		tools:text="Produced by"
+		android:textAlignment="textStart"
+		android:paddingStart="16dp"
+		android:paddingTop="8dp"
+		android:textSize="14sp"
+		android:paddingBottom="16dp"
 		android:textColor="@color/white"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/tvNameFilmListing"/>
 
-	<TextView
-		android:id="@+id/tvEyeColorCharacterListing"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Eye Color"
-		android:textAlignment="center"
-		android:textSize="16sp"
-		android:textColor="@color/white"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvHairColorCharacterListing"/>
 
-	<TextView
-		android:id="@+id/tvSkinColorCharacterListing"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Skin Color"
-		android:textAlignment="center"
-		android:textSize="16sp"
-		android:textColor="@color/white"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvEyeColorCharacterListing"/>
 
-	<TextView
-		android:id="@+id/tvGenderCharacterListing"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		tools:text="Gender"
-		android:textAlignment="center"
-		android:textSize="16sp"
-		android:textColor="@color/white"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tvSkinColorCharacterListing"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

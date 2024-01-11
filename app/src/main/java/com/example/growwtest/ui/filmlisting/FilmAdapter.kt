@@ -43,6 +43,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
         val film = differ.currentList[position]
         holder.binding.apply {
             tvNameFilmListing.text = film.title
+            tvProducerFilmListing.text = "Produced by ${film.producer}"
             root.setOnClickListener {
                 onItemClickListener?.let { it(film, position) }
             }
